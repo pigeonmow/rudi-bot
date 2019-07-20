@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageReceived;
 use App\Store\Eloquent\Models\Faq;
 use Illuminate\Http\Request;
 
@@ -16,4 +17,10 @@ class HomeController extends Controller
     {
         return view('home.index');
     }
+
+    public function chat()
+    {
+        event(new MessageReceived('hello world!, and then some'));
+    }
+
 }

@@ -3,17 +3,15 @@
 @section('content')
 
 
-    <main role="main" aria-labelledby="rudiBotTitle">
+    <main class="pt-5" role="main" aria-labelledby="rudiBotTitle">
         <div class="container">
 
             <div class="row">
-                <h1 id="rudiBotTitle">Rudimentary Chatbot</h1>
+                <h1 id="rudiBotTitle">Rudimentary Chatbot Challenge</h1>
             </div>
 
-            <div class="row">
-                <div id="app">
-                    <chat-bot></chat-bot>
-                </div>
+            <div id="app" class="row">
+                <chat-bot></chat-bot>
             </div>
 
         </div>
