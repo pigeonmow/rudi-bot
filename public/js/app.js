@@ -1854,12 +1854,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       chat: 'chat history in here...',
-      userMessage: 'Type your message and press enter to send...'
+      messages: ['Hi there, I\'m Rudi, what is your name?'],
+      userMessage: ''
     };
   },
   mounted: function mounted() {
@@ -1868,19 +1873,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     startPusher: function startPusher() {
+      var _this = this;
+
       var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_0___default.a('c849acb9d4be3d350217', {
         cluster: 'eu',
         forceTLS: true
       });
       var channel = pusher.subscribe('message-received');
       channel.bind('App\\Events\\MessageReceived', function (data) {
-        console.log('geting message', JSON.stringify(data));
+        _this.messages.push(data.message);
+
+        console.log('geting message', JSON.stringify(data.message));
       });
     },
-    sendMessage: function sendMessage(message) {
-      console.log('sending the message...', this.userMessage);
-      axios.post('http://rudi-bot.test/chat').then(function (response) {
+    sendMessage: function sendMessage() {
+      var _this2 = this;
+
+      console.log('sending the message...');
+      this.messages.push(this.userMessage);
+      axios.post('/chat', {
+        message: this.userMessage
+      }).then(function (response) {
         console.log(response);
+        _this2.userMessage = '';
       })["catch"](function (error) {
         console.log(error);
       });
@@ -46076,7 +46091,13 @@ var render = function() {
   return _c("div", { staticClass: "chatbot mt-5 w-50" }, [
     _c("div", { staticClass: "chat-window" }, [
       _c("div", { staticClass: "conversation-pane p-2" }, [
-        _vm._v(_vm._s(_vm.chat))
+        _c(
+          "ul",
+          _vm._l(_vm.messages, function(message) {
+            return _c("li", [_vm._v(_vm._s(message))])
+          }),
+          0
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "message-input w-100" }, [
@@ -46101,7 +46122,10 @@ var render = function() {
                 }
               ],
               staticClass: "w-100 border-0 p-2",
-              attrs: { type: "text" },
+              attrs: {
+                type: "text",
+                placeholder: "Type your message and press enter to send..."
+              },
               domProps: { value: _vm.userMessage },
               on: {
                 input: function($event) {

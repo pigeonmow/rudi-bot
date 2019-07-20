@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageReceived;
+use App\Message;
 use App\Store\Eloquent\Models\Faq;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,19 @@ class HomeController extends Controller
         return view('home.index');
     }
 
-    public function chat()
+    /**
+     * Persist a user message to the database & return a response to the frontend
+     *
+     * @param Request $request
+     * @param Message $message
+     */
+    public function chat(Request $request, Message $message)
     {
-        event(new MessageReceived('hello world!, and then some'));
+        $message->create(['message' => $request->get('message')]);
+
+        event(new MessageReceived('Hello ' . $request->get('message') . ', I\'m very pleased to meet you'));
+
+        return;
     }
 
 }

@@ -1,11 +1,15 @@
 <template>
     <div class="chatbot mt-5 w-50">
         <div class="chat-window">
-            <div class="conversation-pane p-2">{{ chat }}</div>
+            <div class="conversation-pane p-2">
+                <ul>
+                    <li v-for="message in messages">{{ message }}</li>
+                </ul>
+            </div>
 
             <div class="message-input w-100">
                 <form @submit.prevent="sendMessage">
-                    <input class="w-100 border-0 p-2" v-model="userMessage" type="text">
+                    <input class="w-100 border-0 p-2" v-model="userMessage" type="text" placeholder="Type your message and press enter to send...">
                 </form>
             </div>
         </div>
@@ -20,7 +24,8 @@
         data() {
             return {
                 chat: 'chat history in here...',
-                userMessage: 'Type your message and press enter to send...'
+                messages: ['Hi there, I\'m Rudi, what is your name?'],
+                userMessage: ''
             }
         },
 
@@ -40,15 +45,20 @@
                 const channel = pusher.subscribe('message-received');
 
                 channel.bind('App\\Events\\MessageReceived', (data) => {
-                    console.log('geting message', JSON.stringify(data));
+                    this.messages.push(data.message);
+
+                    console.log('geting message', JSON.stringify(data.message));
                 });
             },
 
-            sendMessage(message) {
-                console.log('sending the message...', this.userMessage);
+            sendMessage() {
+                console.log('sending the message...');
 
-                axios.post('http://rudi-bot.test/chat').then((response) => {
+                this.messages.push(this.userMessage);
+
+                axios.post('/chat', { message: this.userMessage }).then((response) => {
                     console.log(response);
+                    this.userMessage = '';
                 }).catch((error) => {
                     console.log(error);
                 })

@@ -7,7 +7,7 @@
         <div class="container">
 
             <div class="row">
-                <h1 id="rudiBotTitle">Rudimentary Chatbot Challenge</h1>
+                <h1 id="rudiBotTitle">Rudimentary Chatbot</h1>
             </div>
 
             <div id="app" class="row">

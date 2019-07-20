@@ -11,8 +11,16 @@ class MessageReceived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var Message
+     */
     public $message;
 
+    /**
+     * MessageReceived constructor.
+     *
+     * @param $message
+     */
     public function __construct($message)
     {
         $this->message = $message;
@@ -28,8 +36,4 @@ class MessageReceived implements ShouldBroadcast
         return ['message-received'];
     }
 
-    // public function broadcastAs()
-    // {
-    //     return 'message-received';
-    // }
 }
