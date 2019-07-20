@@ -1860,6 +1860,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['pusherKey'],
   data: function data() {
     return {
       chat: 'chat history in here...',
@@ -1875,7 +1876,7 @@ __webpack_require__.r(__webpack_exports__);
     startPusher: function startPusher() {
       var _this = this;
 
-      var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_0___default.a('c849acb9d4be3d350217', {
+      var pusher = new pusher_js__WEBPACK_IMPORTED_MODULE_0___default.a(this.pusherKey, {
         cluster: 'eu',
         forceTLS: true
       });

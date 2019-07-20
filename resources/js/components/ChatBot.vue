@@ -21,6 +21,8 @@
 
     export default {
 
+        props: ['pusherKey'],
+
         data() {
             return {
                 chat: 'chat history in here...',
@@ -37,7 +39,7 @@
 
         methods: {
             startPusher() {
-                const pusher = new Pusher('c849acb9d4be3d350217', {
+                const pusher = new Pusher(this.pusherKey, {
                     cluster: 'eu',
                     forceTLS: true
                 });
