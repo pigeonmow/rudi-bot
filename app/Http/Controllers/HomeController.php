@@ -24,6 +24,7 @@ class HomeController extends Controller
      *
      * @param Request $request
      * @param Message $message
+     * @return string
      */
     public function chat(Request $request, Message $message)
     {
@@ -31,7 +32,7 @@ class HomeController extends Controller
 
         event(new MessageReceived('Hello ' . $request->get('message') . ', I\'m very pleased to meet you'));
 
-        return;
+        return 'Event has been sent';
     }
 
 }
