@@ -25,19 +25,19 @@
 
         data() {
             return {
-                chat: 'chat history in here...',
                 messages: ['Hi there, I\'m Rudi, what is your name?'],
                 userMessage: ''
             }
         },
 
         mounted() {
-            console.log('Component mounted.');
-
             this.startPusher();
         },
 
         methods: {
+            /**
+             * Creates a new Pusher instance
+             */
             startPusher() {
                 const pusher = new Pusher(this.pusherKey, {
                     cluster: 'eu',
@@ -48,14 +48,13 @@
 
                 channel.bind('App\\Events\\MessageReceived', (data) => {
                     this.messages.push(data.message);
-
-                    console.log('geting message', JSON.stringify(data.message));
                 });
             },
 
+            /**
+             * Posts users message
+             */
             sendMessage() {
-                console.log('sending the message...');
-
                 this.messages.push(this.userMessage);
 
                 axios.post('/chat', { message: this.userMessage }).then((response) => {
