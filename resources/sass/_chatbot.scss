@@ -3,7 +3,34 @@
 
     .chat-window {
         .conversation-pane {
+            .list-reset {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
 
+            .message-bubble {
+                display: flex;
+                font-size: 20px;
+                margin-bottom: 20px;
+                width: 100%;
+
+                .content {
+                    display: inline-block;
+                    background-color: $teal;
+                    color: white;
+                    border-radius: 10px;
+                    padding: 8px 15px;
+                }
+
+                &.user {
+                    justify-content: flex-end;
+
+                    .content {
+                        background-color: $blue;
+                    }
+                }
+            }
         }
 
         .message-input {

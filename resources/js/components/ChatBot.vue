@@ -1,9 +1,9 @@
 <template>
-    <div class="chatbot mt-5 w-50">
+    <div class="chatbot card mt-5 w-50">
         <div class="chat-window">
-            <div class="conversation-pane p-2">
-                <ul>
-                    <li v-for="message in messages">{{ message }}</li>
+            <div class="conversation-pane p-4">
+                <ul class="list-reset">
+                    <li :class="[index % 2 !== 0 ? 'user' : '', 'message-bubble']" v-for="(message, index) in messages"><span class="content">{{ message }}</span></li>
                 </ul>
             </div>
 
