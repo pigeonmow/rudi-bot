@@ -10,9 +10,7 @@
                 <h1 id="rudiBotTitle">Rudimentary Chatbot</h1>
             </div>
 
-            <div id="app" class="row">
-                <chat-bot pusher-key="{{ config('app.pusher_key') }}"></chat-bot>
-            </div>
+            <div id="app" class="row"></div>
 
         </div>
     </main>
